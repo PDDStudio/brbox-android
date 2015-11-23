@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">BrBox</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- general, often used strings -->
+    <string name="ok">Ok</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+
+    <!-- navigation drawer strings -->
+    <string name="drawer_item_home">Overview</string>
+    <string name="drawer_item_accounts">Account Management</string>
+    <string name="drawer_item_commands">Manage Commands</string>
+    <string name="drawer_item_preferences">Settings</string>
+    <string name="drawer_item_about">About</string>
+
+    <!-- new user connection strings -->
+    <string name="new_user_id">Username</string>
+    <string name="new_user_pw">Password</string>
+
+    <!-- various dialog strings -->
+    <string name="exit_dialog_title">Exit Application?</string>
+    <string name="exit_dialog_content">Are you sure you want to leave the application? This will close all open connections!</string>
+    <!-- new connection / result dialog strings -->
+    <string name="new_connection_title">Connecting to Server!</string>
+    <string name="new_connection_content">Please be patient!"</string>
+    <string name="new_connection_result_positive_title">Connected!</string>
+    <string name="new_connection_result_positive_content">Successfully connected to the server.</string>
+    <string name="new_connection_result_negative_title">Connection Failed!</string>
+    <string name="new_connection_result_negative_content">Unable to connect! Please check your configuration and try again.</string>
+
+</resources>
