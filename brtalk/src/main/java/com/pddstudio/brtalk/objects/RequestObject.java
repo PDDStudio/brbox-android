@@ -22,4 +22,5 @@ public class RequestObject {
     public BoxCommand getBoxCommand() {
         return boxCommand;
     }
+
 }

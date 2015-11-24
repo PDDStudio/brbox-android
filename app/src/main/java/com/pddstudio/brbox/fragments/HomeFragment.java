@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("LoginButton", "Username: " + userName.getText().toString() + " Password: " + userPassword.getText().toString());
                 //Testing the connection via Test-Class
-                TestClass.getInstance().openTestConnection(getContext(), serverConnectionCallback);
+                TestClass.getInstance().openTestConnection(getContext());
             }
         });
 

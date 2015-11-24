@@ -26,12 +26,6 @@ public final class ContactListDialog {
         dialog = DialogUtil.getDefaultBuilderColors()
                 .title("Your Contacts:")
                 .items(contactNames)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-                        TestClass.getInstance().contactsCallbackTest(i);
-                    }
-                })
                 .positiveText(R.string.ok)
                 .build();
     }

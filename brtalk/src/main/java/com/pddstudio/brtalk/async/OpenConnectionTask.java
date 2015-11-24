@@ -24,24 +24,21 @@ import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
  */
 public class OpenConnectionTask extends AsyncTask<Void, Void, Boolean> {
 
-    private final ServerConnectionCallback serverConnectionCallback;
     private final ServerSettings serverSettings;
     private final ClientSettings clientSettings;
-    private final BrTalk brTalk;
+    private final ConnectionObject connectionObject;
 
     private AbstractXMPPConnection xmppConnection;
 
-    public OpenConnectionTask(BrTalk brTalk, ServerSettings serverSettings, ClientSettings clientSettings, ServerConnectionCallback serverConnectionCallback) {
-        this.serverConnectionCallback = serverConnectionCallback;
-        this.serverSettings = serverSettings;
-        this.clientSettings = clientSettings;
-        this.brTalk = brTalk;
-        //todo replace with ConnectionObject
+    public OpenConnectionTask(ConnectionObject connectionObject) {
+        this.connectionObject = connectionObject;
+        this.serverSettings = connectionObject.getServerSettings();
+        this.clientSettings = connectionObject.getClientSettings();
     }
 
     @Override
     public void onPreExecute() {
-        serverConnectionCallback.onPreparingConnection();
+        connectionObject.onPreparingXmppLogin();
     }
 
     @Override
@@ -76,8 +73,8 @@ public class OpenConnectionTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     public void onPostExecute(Boolean result) {
-        if(result) brTalk.setXMPPConnection(xmppConnection);
-        serverConnectionCallback.onConnectionResultReceived(result);
+        if(result) connectionObject.setXmppConnection(xmppConnection);
+        connectionObject.onXmppLoginResult(result);
     }
 
 }
