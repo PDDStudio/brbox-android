@@ -47,7 +47,6 @@ public final class NewConnectionDialog {
                     Log.d("ConnectionInfo", "Hostname: " + xmppConnection.getHost() + " User: " + xmppConnection.getUser());
                     Log.d("ConnectionInfo", "Connected: " + xmppConnection.isConnected() + " Authenticated: " + xmppConnection.isAuthenticated());
                     Log.d("ConnectionInfo", "Anonymous: " + xmppConnection.isAnonymous() + " Secured Connection: " + xmppConnection.isSecureConnection());
-                    TestClass.getInstance().sendTestMessage();
                 }
             });
         } else {

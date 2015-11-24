@@ -30,5 +30,8 @@
     <string name="new_connection_result_positive_content">Successfully connected to the server.</string>
     <string name="new_connection_result_negative_title">Connection Failed!</string>
     <string name="new_connection_result_negative_content">Unable to connect! Please check your configuration and try again.</string>
+    <!-- disconnected dialog strings -->
+    <string name="connection_disconnected_title">Disconnected!</string>
+    <string name="connection_disconnected_content">Your account has disconnected from the server.</string>
 
 </resources>

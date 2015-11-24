@@ -7,6 +7,7 @@
     tools:context="com.pddstudio.brbox.fragments.HomeFragment">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/home_login_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp">
@@ -79,5 +80,12 @@
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
+
+    <ListView
+        android:id="@+id/contact_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:divider="@android:color/transparent"/>
 
 </LinearLayout>

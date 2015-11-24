@@ -4,20 +4,26 @@ package com.pddstudio.brbox.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.pddstudio.brbox.R;
 import com.pddstudio.brbox.TestClass;
+import com.pddstudio.brbox.adapters.ContactsAdapter;
 import com.pddstudio.brbox.managers.Navigate;
 import com.pddstudio.brbox.views.dialogs.ContactListDialog;
 import com.pddstudio.brbox.views.dialogs.NewConnectionDialog;
 import com.pddstudio.brtalk.callbacks.ServerConnectionCallback;
+import com.pddstudio.brtalk.objects.SingleContact;
 
 
 /**
@@ -30,6 +36,10 @@ public class HomeFragment extends Fragment {
 
     private int fragmentID;
     private String fragmentTag;
+
+    private CardView loginCard;
+    private ListView contactListView;
+    private ContactsAdapter contactsAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -56,7 +66,10 @@ public class HomeFragment extends Fragment {
             this.fragmentID = savedInstanceState.getInt(FRAGMENT_ID_IDENTIFIER);
         }
 
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        loginCard = (CardView) root.findViewById(R.id.home_login_card);
+        loginCard.setVisibility(View.VISIBLE);
 
         final EditText userName = (EditText) root.findViewById(R.id.login_username_field);
         final EditText userPassword = (EditText) root.findViewById(R.id.login_password_field);
@@ -78,27 +91,39 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        Button contactList = (Button) root.findViewById(R.id.show_contacts_btn);
+        final Button contactList = (Button) root.findViewById(R.id.show_contacts_btn);
         contactList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ContactListDialog.show();
+                if(TestClass.getInstance().hasContacts()) {
+                    contactsAdapter = new ContactsAdapter(TestClass.getInstance().getBrTalk());
+                    contactListView.setAdapter(contactsAdapter);
+                    contactsAdapter.reloadContacts();
+                    contactListView.setVisibility(View.VISIBLE);
+                    if(loginCard != null) loginCard.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        contactListView = (ListView) root.findViewById(R.id.contact_list);
+        contactListView.setVisibility(View.GONE);
+
+        contactListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //todo
+                SingleContact contact = contactsAdapter.getItem(position);
+                Snackbar.make(root, "Clicked on: " + contact.getName(), Snackbar.LENGTH_LONG).show();
             }
         });
 
         return root;
     }
 
-    private ServerConnectionCallback serverConnectionCallback = new ServerConnectionCallback() {
-        @Override
-        public void onPreparingConnection() {
-            NewConnectionDialog.show();
-        }
+    public void reloadContacts() {
+        contactListView.setVisibility(View.VISIBLE);
 
-        @Override
-        public void onConnectionResultReceived(boolean status) {
-            NewConnectionDialog.showResult(status);
-        }
-    };
+    }
 
 }

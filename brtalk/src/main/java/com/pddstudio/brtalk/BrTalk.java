@@ -35,6 +35,7 @@ public class BrTalk {
 
     //optional identifier for the connection
     private final String connectionId;
+
     //for managing the contacts
     private ContactsManager contactsManager;
 
@@ -58,6 +59,9 @@ public class BrTalk {
     }
 
     public List<SingleContact> getContacts() {
+        if(contactsManager == null) {
+            this.contactsManager = connectionObject.getContactsManager();
+        }
         return contactsManager.getContactList();
     }
 

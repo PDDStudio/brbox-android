@@ -1,10 +1,12 @@
 package com.pddstudio.brtalk.objects;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.pddstudio.brtalk.callbacks.xmpp.XmppLoginCallback;
 import com.pddstudio.brtalk.callbacks.xmpp.XmppLogoutCallback;
 import com.pddstudio.brtalk.callbacks.xmpp.XmppMessageCallback;
+import com.pddstudio.brtalk.managers.ContactsManager;
 
 import org.jivesoftware.smack.AbstractXMPPConnection;
 import org.jivesoftware.smack.chat.Chat;
@@ -24,9 +26,15 @@ import java.util.Queue;
  */
 public class ConnectionObject implements XmppLoginCallback, XmppMessageCallback, XmppLogoutCallback {
 
+    //connection information
     private final ClientSettings clientSettings;
     private final ServerSettings serverSettings;
     private AbstractXMPPConnection xmppConnection;
+
+    //managers
+    private ContactsManager contactsManager;
+
+    //lists for the listeners
     private final List<XmppMessageCallback> messageCallbackList = new ArrayList<>();
     private final List<XmppLoginCallback> loginCallbackList = new ArrayList<>();
     private final List<XmppLogoutCallback> logoutCallbackList = new ArrayList<>();
@@ -44,6 +52,11 @@ public class ConnectionObject implements XmppLoginCallback, XmppMessageCallback,
     //returns the client settings
     public ClientSettings getClientSettings() {
         return clientSettings;
+    }
+
+    //get the ContactsManager
+    public ContactsManager getContactsManager() {
+        return ContactsManager.forConnection(xmppConnection);
     }
 
     //the connection object - this is only used by the OpenConnectionTask after a successful login
@@ -70,16 +83,19 @@ public class ConnectionObject implements XmppLoginCallback, XmppMessageCallback,
 
     //for adding multiple XmppMessageCallback interfaces
     public void addMessageCallback(XmppMessageCallback messageCallbacks) {
+        Log.d("Connection/O", "addMessageCallback() - a new listener has been added.");
         messageCallbackList.add(messageCallbacks);
     }
 
     //for adding multiple XmppLoginCallback interfaces
     public void addLoginCallback(XmppLoginCallback xmppLoginCallback) {
+        Log.d("Connection/O", "addLoginCallback() - a new listener has been added.");
         loginCallbackList.add(xmppLoginCallback);
     }
 
     //for adding multiple XmppLogoutCallback interfaces
     public void addLogoutCallback(XmppLogoutCallback xmppLogoutCallback) {
+        Log.d("Connection/O", "addLogoutCallback() - a new listener has been added.");
         logoutCallbackList.add(xmppLogoutCallback);
     }
 
@@ -115,6 +131,7 @@ public class ConnectionObject implements XmppLoginCallback, XmppMessageCallback,
 
     @Override
     public void onPreparingXmppLogin() {
+        Log.d("Connection/O", "onPreparingXmppLogin() - calling listeners.");
         for(XmppLoginCallback callback : loginCallbackList) {
             callback.onPreparingXmppLogin();
         }
@@ -122,6 +139,7 @@ public class ConnectionObject implements XmppLoginCallback, XmppMessageCallback,
 
     @Override
     public void onXmppLoginResult(boolean loginSuccessful) {
+        Log.d("Connection/O", "onXmppLoginResult() - calling listeners.");
         for(XmppLoginCallback callback : loginCallbackList) {
             callback.onXmppLoginResult(loginSuccessful);
         }
@@ -129,6 +147,7 @@ public class ConnectionObject implements XmppLoginCallback, XmppMessageCallback,
 
     @Override
     public void onPrepareRequest() {
+        Log.d("Connection/O", "onPrepareRequest() - calling listeners.");
         for(XmppMessageCallback callback : messageCallbackList) {
             callback.onPrepareRequest();
         }
@@ -136,6 +155,7 @@ public class ConnectionObject implements XmppLoginCallback, XmppMessageCallback,
 
     @Override
     public void onServeResponse(ResponseObject responseObject) {
+        Log.d("Connection/O", "onServeResponse() - calling listeners.");
         for(XmppMessageCallback callback : messageCallbackList) {
             callback.onServeResponse(responseObject);
         }
@@ -143,6 +163,7 @@ public class ConnectionObject implements XmppLoginCallback, XmppMessageCallback,
 
     @Override
     public void onRequestFailure(RequestFailure requestFailure) {
+        Log.d("Connection/O", "onRequestFailure() - calling listeners.");
         for (XmppMessageCallback callback : messageCallbackList) {
             callback.onRequestFailure(requestFailure);
         }
@@ -150,6 +171,7 @@ public class ConnectionObject implements XmppLoginCallback, XmppMessageCallback,
 
     @Override
     public void onLogout(boolean logoutSuccess) {
+        Log.d("Connection/O", "onLogout() - calling listeners.");
         for (XmppLogoutCallback callback : logoutCallbackList) {
             callback.onLogout(logoutSuccess);
         }
