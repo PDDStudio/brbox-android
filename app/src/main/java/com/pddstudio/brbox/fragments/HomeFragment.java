@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.pddstudio.brbox.ChatActivity;
 import com.pddstudio.brbox.R;
 import com.pddstudio.brbox.TestClass;
 import com.pddstudio.brbox.adapters.ContactsAdapter;
@@ -115,15 +116,13 @@ public class HomeFragment extends Fragment {
                 //todo
                 SingleContact contact = contactsAdapter.getItem(position);
                 Snackbar.make(root, "Clicked on: " + contact.getName(), Snackbar.LENGTH_LONG).show();
+                Intent details = new Intent(HomeFragment.this.getContext(), ChatActivity.class);
+                details.putExtra(ChatActivity.CONTACT, contact);
+                HomeFragment.this.startActivity(details);
             }
         });
 
         return root;
-    }
-
-    public void reloadContacts() {
-        contactListView.setVisibility(View.VISIBLE);
-
     }
 
 }

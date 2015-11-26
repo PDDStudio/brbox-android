@@ -101,7 +101,7 @@ public class ConnectionObject implements XmppLoginCallback, XmppMessageCallback,
 
     public void sendRequest(@NonNull RequestObject requestObject) {
         if(xmppConnection != null && xmppConnection.isConnected()) {
-            this.onPrepareRequest();
+            this.onPrepareRequest(requestObject);
             try {
                 ChatManager chatManager = ChatManager.getInstanceFor(xmppConnection);
                 Chat chat = chatManager.createChat(requestObject.getSingleContact().getConnectionId());
@@ -146,10 +146,10 @@ public class ConnectionObject implements XmppLoginCallback, XmppMessageCallback,
     }
 
     @Override
-    public void onPrepareRequest() {
+    public void onPrepareRequest(RequestObject requestObject) {
         Log.d("Connection/O", "onPrepareRequest() - calling listeners.");
         for(XmppMessageCallback callback : messageCallbackList) {
-            callback.onPrepareRequest();
+            callback.onPrepareRequest(requestObject);
         }
     }
 

@@ -10,7 +10,7 @@ import com.pddstudio.brtalk.objects.ResponseObject;
  * have a look at the README.md
  */
 public interface XmppMessageCallback {
-    void onPrepareRequest();
+    void onPrepareRequest(RequestObject requestObject);
     void onServeResponse(ResponseObject responseObject);
     void onRequestFailure(RequestFailure requestFailure);
 }

@@ -1,11 +1,15 @@
 package com.pddstudio.brtalk.objects;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * This Class was created by Patrick J
  * on 21.11.15. For more Details and Licensing
  * have a look at the README.md
  */
-public class SingleContact {
+public class SingleContact implements Serializable {
 
     //the 'real' name
     private String conName;

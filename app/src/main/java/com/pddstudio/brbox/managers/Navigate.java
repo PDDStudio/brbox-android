@@ -15,6 +15,8 @@ import com.pddstudio.brbox.fragments.AboutFragment;
 import com.pddstudio.brbox.fragments.AccountFragment;
 import com.pddstudio.brbox.fragments.CommandFragment;
 import com.pddstudio.brbox.fragments.HomeFragment;
+import com.pddstudio.brbox.fragments.SingleContactFragment;
+import com.pddstudio.brtalk.objects.SingleContact;
 
 /**
  * This Class was created by Patrick J
